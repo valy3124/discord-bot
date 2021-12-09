@@ -1,5 +1,5 @@
 #!./.venv/bin/python
- 
+
 import discord      # base discord module
 import code         # code.interact
 import os           # environment variables
@@ -115,3 +115,18 @@ if __name__ == '__main__':
  
     # launch bot (blocking operation)
     bot.run(os.environ['BOT_TOKEN'])
+   
+   if name == 'main':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-t", "--token", help="Adaugare token", type=str)
+    args = parser.parse_args()
+    # check if argument had valid input
+    if args.token:
+        bot.run(args.token)
+    else:
+        if 'BOT_TOKEN' not in os.environ:
+            log_msg('save your token in the BOT_TOKEN env variable or use it in the argument parameter!', 'error')
+            exit(-1)
+            #if valid input isn't found either in the env variable BOT_TOKEN or in the args.token variable we output the error
+        else:
+            bot.run(os.environ['BOT_TOKEN'])
